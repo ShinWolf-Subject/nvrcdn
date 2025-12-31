@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TempUploader | Upload File Sementara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/676ca851f3.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://nievexsviz.my.id/nv.ico">
+</head>
+<body class="bg-gradient-to-br from-cyan-50 to-blue-100 min-h-screen font-sans transition-colors duration-300">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-cyan-500 border-4 border-zinc-600 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-2xl flex items-center justify-center transition-all duration-300 overflow-hidden">
+                        <img src="https://nievexsviz.my.id/nv.ico" alt="brand" class="h-full w-full object-cover" />
+                    </div>
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-bold font-space" style="font-family: 'Space Grotesk', sans-serif;">NvCDN</h1>
+                        <p class="text-gray-700 text-lg mt-1 font-medium transition-colors duration-300">Temporary File Hosting • Max 128MB</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://nvcdn.vercel.app" target="_blank" class="neo-btn bg-green-400 border-black text-black transition-all duration-300 text-white">
+                        <i class="fab fa-whatsapp text-[25px] text-white mr-1"></i> WhatsApp
+                    </a>
+                    <button id="themeToggle" class="neo-btn bg-black border-black text-white transition-all duration-300">
+                        <span class="material-icons mr-2">dark_mode</span>Mode Gelap
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mt-8 p-5 bg-gradient-to-r from-cyan-400 to-blue-400 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-2xl transition-all duration-300">
+                <div class="flex items-center">
+                    <span class="material-icons text-3xl mr-4">info</span>
+                    <p class="text-lg font-medium">File akan otomatis terhapus setelah 5 jam. Mendukung upload file langsung atau dari URL.</p>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Upload File Section -->
+                <section class="neo-section bg-white transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-green-500 border-3 border-black rounded-xl flex items-center justify-center transition-all duration-300">
+                            <span class="material-icons text-2xl text-white">upload_file</span>
+                        </div>
+                        <h2 class="text-3xl font-bold font-space">Upload File</h2>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <p class="text-gray-700 mb-4 transition-colors duration-300">Pilih file dari perangkat Anda (max 128MB)</p>
+                        <div id="dropArea" class="neo-upload-area">
+                            <div class="text-center py-10">
+                                <span class="material-icons text-6xl text-blue-500 mb-4 transition-colors duration-300">cloud_upload</span>
+                                <p class="text-xl font-medium mb-2 transition-colors duration-300">Drag & drop file di sini</p>
+                                <p class="text-gray-600 mb-6 transition-colors duration-300">atau</p>
+                                <label for="fileInput" class="neo-btn bg-blue-500 border-black text-white cursor-pointer inline-block transition-all duration-300">
+                                    <span class="material-icons mr-2">folder_open</span>Pilih File
+                                </label>
+                                <input type="file" id="fileInput" class="hidden">
+                                <p class="text-sm text-gray-500 mt-4 transition-colors duration-300">Mendukung semua jenis file: gambar, dokumen, video, dll.</p>
+                            </div>
+                        </div>
+                        
+                        <div id="filePreview" class="hidden mt-6 animate-slide-up">
+                            <div class="flex items-center justify-between p-4 bg-cyan-50 border-3 border-black rounded-xl transition-all duration-300">
+                                <div class="flex items-center gap-4">
+                                    <div id="fileIcon" class="w-12 h-12 bg-blue-100 border-2 border-black rounded-lg flex items-center justify-center transition-all duration-300">
+                                        <span id="iconText" class="material-icons text-blue-600 transition-colors duration-300">description</span>
+                                    </div>
+                                    <div>
+                                        <h4 id="fileName" class="font-bold text-lg transition-colors duration-300"></h4>
+                                        <p id="fileSize" class="text-gray-600 transition-colors duration-300"></p>
+                                    </div>
+                                </div>
+                                <button id="removeFile" class="neo-btn bg-red-100 border-black text-red-700 transition-all duration-300">
+                                    <span class="material-icons">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center text-gray-700 transition-colors duration-300">
+                            <span class="material-icons mr-2 text-green-600">schedule</span>
+                            <span>Kadaluarsa dalam <span class="font-bold">5 jam</span></span>
+                        </div>
+                        <button id="uploadBtn" class="neo-btn bg-green-500 border-black text-white transition-all duration-300">
+                            <span class="material-icons mr-2">send</span>Upload Sekarang
+                        </button>
+                    </div>
+                </section>
+                
+                <!-- Upload from URL Section -->
+                <section class="neo-section bg-white transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-purple-500 border-3 border-black rounded-xl flex items-center justify-center transition-all duration-300">
+                            <span class="material-icons text-2xl text-white">link</span>
+                        </div>
+                        <h2 class="text-3xl font-bold font-space">Upload dari URL</h2>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <p class="text-gray-700 mb-4 transition-colors duration-300">Tempel URL file untuk diupload (max 128MB)</p>
+                        <div class="relative">
+                            <span class="material-icons absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 transition-colors duration-300">link</span>
+                            <input type="url" id="urlInput" placeholder="https://example.com/file.jpg" class="neo-input pl-12">
+                        </div>
+                        <div class="mt-4 flex items-start gap-2 text-gray-600 transition-colors duration-300">
+                            <span class="material-icons text-sm text-blue-500 mt-0.5 transition-colors duration-300">info</span>
+                            <p class="text-sm">Pastikan URL mengarah langsung ke file yang ingin diupload (image, pdf, zip, dll.)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mr-3 transition-all duration-300 flex items-center justify-center">
+                              <span class="material-icons text-white text-[28px]">link</span>
+                            </div>
+                            <h3 class="text-xl font-bold transition-colors duration-300">URL Contoh</h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-3 bg-gray-100 border-2 border-gray-300 rounded-xl transition-all duration-300">
+                                <p class="text-sm font-medium truncate">https://example.com/image.jpg</p>
+                                <p class="text-xs text-gray-500 mt-1 transition-colors duration-300">Gambar</p>
+                            </div>
+                            <div class="p-3 bg-gray-100 border-2 border-gray-300 rounded-xl transition-all duration-300">
+                                <p class="text-sm font-medium truncate">https://example.com/document.pdf</p>
+                                <p class="text-xs text-gray-500 mt-1 transition-colors duration-300">PDF</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="uploadUrlBtn" class="neo-btn bg-purple-500 border-black text-white w-full transition-all duration-300">
+                        <span class="material-icons mr-2">download</span>Upload dari URL
+                    </button>
+                </section>
+            </div>
+            
+            <!-- Upload Progress & Results -->
+            <div id="uploadResult" class="hidden mt-8">
+                <div class="neo-section bg-white transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-yellow-500 border-3 border-black rounded-xl flex items-center justify-center transition-all duration-300">
+                            <span class="material-icons text-2xl text-white">sync</span>
+                        </div>
+                        <h2 class="text-3xl font-bold font-space">Status Upload</h2>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div id="progressSection" class="hidden mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium transition-colors duration-300">Mengunggah...</span>
+                            <span id="progressPercent" class="font-bold transition-colors duration-300">0%</span>
+                        </div>
+                        <div class="h-6 bg-gray-200 border-2 border-black rounded-full overflow-hidden transition-all duration-300">
+                            <div id="progressBar" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Result -->
+                    <div id="resultSection" class="hidden animate-fade-in">
+                        <div class="p-6 bg-gradient-to-r from-green-50 to-cyan-50 border-3 border-black rounded-2xl mb-6 transition-all duration-300">
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 bg-green-500 border-3 border-black rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300">
+                                    <span class="material-icons text-3xl text-white">check_circle</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-green-700 transition-colors duration-300">Upload Berhasil!</h3>
+                                    <p class="text-gray-700 transition-colors duration-300">File Anda telah berhasil diupload dan akan otomatis terhapus dalam 5 jam.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-5 bg-blue-50 border-3 border-black rounded-2xl transition-all duration-300">
+                                <h4 class="font-bold text-lg mb-3 flex items-center transition-colors duration-300">
+                                    <span class="material-icons mr-2 text-blue-600">link</span> URL Akses
+                                </h4>
+                                <div class="flex">
+                                    <input id="accessUrl" type="text" readonly class="neo-input bg-white flex-grow rounded-r-none border-r-0">
+                                    <button id="copyAccessUrl" class="neo-btn bg-blue-500 border-black text-white rounded-l-none transition-all duration-300">
+                                        <span class="material-icons">content_copy</span>
+                                    </button>
+                                </div>
+                                <a id="openAccessUrl" href="#" target="_blank" class="inline-flex items-center text-blue-600 font-medium mt-3 transition-colors duration-300">
+                                    <span class="material-icons mr-1">open_in_new</span>Buka File
+                                </a>
+                            </div>
+                            
+                            <div class="p-5 bg-amber-50 border-3 border-black rounded-2xl transition-all duration-300">
+                                <h4 class="font-bold text-lg mb-3 flex items-center transition-colors duration-300">
+                                    <span class="material-icons mr-2 text-amber-600">delete</span> URL Hapus
+                                </h4>
+                                <div class="flex">
+                                    <input id="deleteUrl" type="text" readonly class="neo-input bg-white flex-grow rounded-r-none border-r-0">
+                                    <button id="copyDeleteUrl" class="neo-btn bg-amber-500 border-black text-white rounded-l-none transition-all duration-300">
+                                        <span class="material-icons">content_copy</span>
+                                    </button>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-3 transition-colors duration-300">Gunakan URL ini jika ingin menghapus file sebelum waktunya.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-5 bg-gray-100 border-3 border-black rounded-2xl transition-all duration-300">
+                            <h4 class="font-bold text-lg mb-3 transition-colors duration-300">Informasi File</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div>
+                                    <p class="text-gray-600 text-sm transition-colors duration-300">Nama File</p>
+                                    <p id="infoFileName" class="font-bold truncate transition-colors duration-300"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm transition-colors duration-300">Ukuran</p>
+                                    <p id="infoFileSize" class="font-bold transition-colors duration-300"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm transition-colors duration-300">Tipe</p>
+                                    <p id="infoFileType" class="font-bold transition-colors duration-300"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm transition-colors duration-300">Kadaluarsa</p>
+                                    <p id="infoFileExpires" class="font-bold transition-colors duration-300"></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-between">
+                            <button id="uploadAnother" class="neo-btn bg-gray-200 border-black text-black transition-all duration-300">
+                                <span class="material-icons mr-2">add</span>Upload Lagi
+                            </button>
+                            <button id="viewSuccessPage" class="neo-btn bg-green-500 border-black text-white transition-all duration-300">
+                                Lihat Halaman Sukses <span class="material-icons ml-2">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Uploads (Demo) -->
+            <div class="mt-12">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-bold font-space transition-colors duration-300">Contoh File Terupload</h2>
+                    <div class="flex items-center text-gray-700 transition-colors duration-300">
+                        <span class="material-icons mr-2 text-blue-500 transition-colors duration-300">history</span>
+                        <span>Demo statis</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="p-4 bg-white border-3 border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 demo-item">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-pink-100 border-2 border-black rounded-lg flex items-center justify-center transition-all duration-300">
+                                <span class="material-icons text-pink-600 transition-colors duration-300">image</span>
+                            </div>
+                            <div>
+                                <p class="font-bold truncate transition-colors duration-300">landscape.jpg</p>
+                                <p class="text-xs text-gray-500 transition-colors duration-300">5.2 MB • 2 jam lagi</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-gray-200 rounded-full overflow-hidden transition-all duration-300">
+                            <div class="h-full bg-pink-400 w-2/3 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-white border-3 border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 demo-item">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-blue-100 border-2 border-black rounded-lg flex items-center justify-center transition-all duration-300">
+                                <span class="material-icons text-blue-600 transition-colors duration-300">description</span>
+                            </div>
+                            <div>
+                                <p class="font-bold truncate transition-colors duration-300">laporan.pdf</p>
+                                <p class="text-xs text-gray-500 transition-colors duration-300">12.1 MB • 3 jam lagi</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-gray-200 rounded-full overflow-hidden transition-all duration-300">
+                            <div class="h-full bg-blue-400 w-1/2 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-white border-3 border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 demo-item">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-green-100 border-2 border-black rounded-lg flex items-center justify-center transition-all duration-300">
+                                <span class="material-icons text-green-600 transition-colors duration-300">video_file</span>
+                            </div>
+                            <div>
+                                <p class="font-bold truncate transition-colors duration-300">presentasi.mp4</p>
+                                <p class="text-xs text-gray-500 transition-colors duration-300">45.3 MB • 4 jam lagi</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-gray-200 rounded-full overflow-hidden transition-all duration-300">
+                            <div class="h-full bg-green-400 w-1/4 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-white border-3 border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 demo-item">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-amber-100 border-2 border-black rounded-lg flex items-center justify-center transition-all duration-300">
+                                <span class="material-icons text-amber-600 transition-colors duration-300">archive</span>
+                            </div>
+                            <div>
+                                <p class="font-bold truncate transition-colors duration-300">data.zip</p>
+                                <p class="text-xs text-gray-500 transition-colors duration-300">87.6 MB • 1 jam lagi</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-gray-200 rounded-full overflow-hidden transition-all duration-300">
+                            <div class="h-full bg-amber-400 w-1/5 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="mt-16 pt-8 border-t-4 border-black transition-all duration-300">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-black border-3 border-black rounded-xl flex items-center justify-center transition-all duration-300">
+                            <span class="material-icons text-white">cloud_upload</span>
+                        </div>
+                        <p class="text-xl font-bold transition-colors duration-300">NvCDN</p>
+                    </div>
+                    <p class="text-gray-700 mt-2 transition-colors duration-300">A free Temporary File Hosting Service.</p>
+                </div>
+                
+                <div class="flex gap-6">
+                    <a href="https://github.com/ShinWolf-Subject/nvrcdn.git" class="text-black font-medium hover:underline flex items-center transition-all duration-300">
+                        <i class="fab fa-github mr-1 text-xl"></i>GitHub
+                    </a>
+                    <a href="#" class="text-black font-medium hover:underline flex items-center transition-all duration-300">
+                        <span class="material-icons mr-1">help</span>Bantuan
+                    </a>
+                </div>
+            </div>
+            
+            <p class="text-center text-gray-600 mt-8 text-xl font-bold transition-colors duration-300">© 2026 NvCDN</p>
+            <p class="text-center text-gray-600 text-sm mt-2 transition-colors duration-300">File akan otomatis terhapus setelah 5 jam</p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center">
+        <div class="bg-white p-8 border-4 border-black rounded-2xl shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] max-w-md text-center animate-fade-in">
+            <div class="w-20 h-20 mx-auto mb-6 border-4 border-black rounded-full flex items-center justify-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-4 border-black"></div>
+            </div>
+            <h3 class="text-2xl font-bold mb-2 transition-colors duration-300">Mengupload File</h3>
+            <p class="text-gray-700 transition-colors duration-300" id="loadingText">Mohon tunggu, file sedang diupload...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden fixed bottom-6 right-6 bg-black border-3 border-black text-white p-4 rounded-xl shadow-[6px_6px_0px_0px_rgba(255,255,255,0.3)] max-w-md z-50 animate-slide-up">
+        <div class="flex items-center">
+            <span id="toastIcon" class="material-icons mr-3 text-2xl">check_circle</span>
+            <div>
+                <p id="toastMessage" class="font-medium">Berhasil disalin ke clipboard!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+/* Custom CSS untuk TempUploader */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap');
+
+/* Font families */
+.font-space {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Animasi CSS */
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+}
+
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+.pulse-glow {
+    animation: pulse-glow 2s infinite;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Delay untuk animasi */
+.delay-100 {
+    animation-delay: 0.1s;
+}
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+.delay-300 {
+    animation-delay: 0.3s;
+}
+
+.delay-400 {
+    animation-delay: 0.4s;
+}
+
+/* Neobrutalism styling */
+.neo-section {
+    border: 4px solid #000;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.neo-section:hover {
+    box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 1);
+    transform: translate(-2px, -2px);
+}
+
+.neo-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border: 3px solid #000;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+    text-decoration: none;
+}
+
+.neo-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.neo-btn:active {
+    transform: translate(0px, 0px);
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.neo-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 3px solid #000;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    background-color: white;
+    transition: all 0.2s ease;
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.neo-input:focus {
+    outline: none;
+    box-shadow: 6px 6px 0px 0px rgba(59, 130, 246, 0.5);
+    transform: translate(-1px, -1px);
+}
+
+.neo-upload-area {
+    border: 4px dashed #000;
+    border-radius: 1.5rem;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.neo-upload-area:hover {
+    background-color: #f0f9ff;
+    border-color: #3b82f6;
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px 0px rgba(59, 130, 246, 0.3);
+}
+
+.neo-upload-area.dragover {
+    background-color: #dbeafe;
+    border-color: #1d4ed8;
+    transform: translate(-3px, -3px);
+    box-shadow: 10px 10px 0px 0px rgba(29, 78, 216, 0.3);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-left: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border: 2px solid #000;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1d4ed8;
+}
+
+/* DARK MODE - Perbaikan komprehensif */
+body.dark-mode {
+    background: linear-gradient(to bottom right, #0f172a, #1e293b) !important;
+    color: #e2e8f0 !important;
+}
+
+/* Text colors in dark mode */
+body.dark-mode .text-gray-700,
+body.dark-mode .text-gray-600,
+body.dark-mode .text-gray-500,
+body.dark-mode .text-black {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .text-white {
+    color: #f1f5f9 !important;
+}
+
+/* Backgrounds in dark mode */
+body.dark-mode .bg-white,
+body.dark-mode .neo-section {
+    background-color: #334155 !important;
+    border-color: #e2e8f0 !important;
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .bg-gradient-to-br.from-cyan-50.to-blue-100 {
+    background: linear-gradient(to bottom right, #0f172a, #1e293b) !important;
+}
+
+body.dark-mode .bg-gradient-to-br.from-green-50.to-emerald-100 {
+    background: linear-gradient(to bottom right, #064e3b, #065f46) !important;
+}
+
+body.dark-mode .bg-gray-100,
+body.dark-mode .bg-gray-50,
+body.dark-mode .bg-gray-200 {
+    background-color: #475569 !important;
+}
+
+body.dark-mode .bg-blue-50,
+body.dark-mode .bg-cyan-50 {
+    background-color: #1e40af !important;
+}
+
+body.dark-mode .bg-green-50 {
+    background-color: #065f46 !important;
+}
+
+body.dark-mode .bg-amber-50 {
+    background-color: #92400e !important;
+}
+
+body.dark-mode .bg-purple-50 {
+    background-color: #5b21b6 !important;
+}
+
+body.dark-mode .bg-pink-50 {
+    background-color: #831843 !important;
+}
+
+/* Buttons in dark mode */
+body.dark-mode .neo-btn {
+    border-color: #e2e8f0 !important;
+}
+
+body.dark-mode .neo-btn.bg-black {
+    background-color: #475569 !important;
+}
+
+body.dark-mode .neo-btn.bg-white {
+    background-color: #475569 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Inputs in dark mode */
+body.dark-mode .neo-input {
+    background-color: #475569 !important;
+    border-color: #e2e8f0 !important;
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .neo-input::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* Upload area in dark mode */
+body.dark-mode .neo-upload-area {
+    background-color: #475569 !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Demo items in dark mode */
+body.dark-mode .demo-item {
+    background-color: #334155 !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Icons in dark mode */
+body.dark-mode .material-icons.text-blue-600 {
+    color: #60a5fa !important;
+}
+
+body.dark-mode .material-icons.text-green-600 {
+    color: #34d399 !important;
+}
+
+body.dark-mode .material-icons.text-red-500 {
+    color: #f87171 !important;
+}
+
+body.dark-mode .material-icons.text-amber-600 {
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .material-icons.text-purple-600 {
+    color: #a78bfa !important;
+}
+
+body.dark-mode .material-icons.text-pink-600 {
+    color: #f472b6 !important;
+}
+
+body.dark-mode .material-icons.text-gray-500 {
+    color: #94a3b8 !important;
+}
+
+/* Progress bars in dark mode */
+body.dark-mode .bg-gray-200 {
+    background-color: #475569 !important;
+}
+
+/* Links in dark mode */
+body.dark-mode a.text-blue-600 {
+    color: #60a5fa !important;
+}
+
+body.dark-mode a.text-black {
+    color: #e2e8f0 !important;
+}
+
+/* Borders in dark mode */
+body.dark-mode .border-black,
+body.dark-mode .border-gray-300,
+body.dark-mode .border-t-4.border-black {
+    border-color: #e2e8f0 !important;
+}
+
+/* Shadows in dark mode */
+body.dark-mode .shadow-\[8px_8px_0px_0px_rgba\(0\2c 0\2c 0\2c 1\)\],
+body.dark-mode .shadow-\[4px_4px_0px_0px_rgba\(0\2c 0\2c 0\2c 1\)\],
+body.dark-mode .shadow-\[12px_12px_0px_0px_rgba\(0\2c 0\2c 0\2c 1\)\] {
+    box-shadow: 8px 8px 0px 0px rgba(226, 232, 240, 0.5) !important;
+}
+
+/* Footer and header in dark mode */
+body.dark-mode footer,
+body.dark-mode header {
+    border-color: #e2e8f0 !important;
+}
+
+/* Info boxes in dark mode */
+body.dark-mode .bg-gradient-to-r.from-cyan-400.to-blue-400 {
+    background: linear-gradient(to right, #0ea5e9, #3b82f6) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .neo-section {
+        padding: 1.5rem;
+    }
+    
+    .neo-btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Initial animations for page load */
+header, .neo-section, .grid > * {
+    opacity: 0;
+    animation: fade-in 0.8s ease-out forwards;
+}
+
+header {
+    animation-delay: 0.1s;
+}
+
+.neo-section:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.neo-section:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.grid > *:nth-child(1) {
+    animation-delay: 0.4s;
+}
+
+.grid > *:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.grid > *:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+/* QR Code Container Styling */
+#qrCodeContainer {
+    position: relative;
+    overflow: hidden;
+}
+
+#qrCodeContainer img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+#qrCodeContainer img:hover {
+    transform: scale(1.02);
+}
+
+/* QR Code Glow Effect */
+#qrCodeContainer.pulse-glow {
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+    }
+}
+
+/* Dark Mode for QR Code */
+body.dark-mode #qrCodeContainer {
+    background-color: #1e293b;
+    border-color: #475569;
+}
+
+body.dark-mode .bg-gradient-to-br.from-gray-100.to-gray-200 {
+    background: linear-gradient(135deg, #334155 0%, #475569 100%);
+    border-color: #64748b;
+}
+
+body.dark-mode .bg-gradient-to-br.from-blue-50.to-cyan-50 {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+    border-color: #3b82f6;
+}
+
+body.dark-mode .bg-gradient-to-br.from-amber-50.to-orange-50 {
+    background: linear-gradient(135deg, #92400e 0%, #ea580c 100%);
+    border-color: #f97316;
+}
+
+/* Responsive QR Code */
+@media (max-width: 768px) {
+    #qrCodeContainer {
+        width: 240px !important;
+        height: 240px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    #qrCodeContainer {
+        width: 200px !important;
+        height: 200px !important;
+    }
+}
+
+/* QR Code Information Styling */
+.text-number-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}

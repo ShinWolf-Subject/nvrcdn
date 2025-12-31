@@ -23,6 +23,9 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
+// Serve static site 
+app.use(express.static(path.join(__dirname, 'page')));
+
 // Middleware
 app.use(helmet({
   contentSecurityPolicy: {
@@ -673,6 +676,11 @@ app.post('/unban/:ip', (req, res) => {
 // ENDPOINT: / (Root)
 // ============================================
 app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'page', 'index.html'));
+});
+
+/*
+app.get('/', (req, res) => {
   res.json({
     service: 'Temporary File Hosting',
     version: '1.0.0',
@@ -701,6 +709,7 @@ app.get('/', (req, res) => {
     creator: '@NvLabs'
   });
 });
+*/
 
 // ============================================
 // Helper Functions
