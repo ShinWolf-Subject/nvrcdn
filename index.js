@@ -624,7 +624,7 @@ app.get('/stats', (req, res) => {
     totalSize: totalSize,
     totalSizeFormatted: formatFileSize(totalSize),
     filesByType: filesByType,
-    uploadDir: UPLOAD_DIR,
+    uploadDir: '/nv/assets/',
     maxFileSize: formatFileSize(MAX_FILE_SIZE),
     fileLifetime: `${FILE_LIFETIME_HOURS} jam`,
     bannedIPs: bannedIPs.size,
@@ -684,8 +684,6 @@ app.get('/', (req, res) => {
       fileInfo: 'GET /info/:fileId',
       deleteFile: 'DELETE /delete/:fileId',
       statistics: 'GET /stats',
-      banList: 'GET /banlist',
-      unbanIP: 'POST /unban/:ip'
     },
     limits: {
       maxFileSize: '128MB',
@@ -700,7 +698,7 @@ app.get('/', (req, res) => {
       'IP banning untuk spam',
       'Range request support untuk media',
     ],
-  creator: '@NvLabs'
+    creator: '@NvLabs'
   });
 });
 
@@ -759,8 +757,6 @@ app.use((req, res) => {
       'GET /info/:fileId',
       'DELETE /delete/:fileId',
       'GET /stats',
-      'GET /banlist',
-      'POST /unban/:ip'
     ]
   });
 });
@@ -807,7 +803,7 @@ if (!IS_SERVERLESS) {
   app.listen(PORT, () => {
     console.log(`
 ╔═══════════════════════════════════════════════════════════╗
-║      Temporary File Hosting Pro - Server Ready           ║
+║      Temporary File Hosting - Server Ready           ║
 ╠═══════════════════════════════════════════════════════════╣
 ║  Port: ${PORT}                                            ║
 ║  Upload Dir: ${UPLOAD_DIR}                                ║
@@ -824,10 +820,9 @@ if (!IS_SERVERLESS) {
    GET  /info/:id    - Info file
    DELETE /delete/:id- Hapus file
    GET  /stats       - Statistics
-   GET  /banlist     - Lihat banned IPs
    
 🔒 Security:
-   • Rate limit: 2 requests/5s
+   • Rate limit: 2 reqs/5s
    • IP ban: 3 jam untuk spam
    • File auto-delete: 5 jam
    • File type validation
